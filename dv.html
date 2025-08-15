@@ -1,0 +1,565 @@
+!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>دليل البرمجة الشامل - DERAMA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #8e44ad;
+      --secondary-color: #e74c3c;
+      --accent-color: #1abc9c;
+      --text-color: #ecf0f1;
+      --bg-color: #2c3e50;
+      --card-bg: #34495e;
+      --header-bg: #1a1a2e;
+      --footer-bg: #1a1a2e;
+      --footer-text: #ecf0f1;
+      --timeline-color: #9b59b6;
+    }
+    
+    body {
+      font-family: 'IBM Plex Sans Arabic', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+    
+    header {
+      background: var(--header-bg);
+      color: white;
+      padding: 3rem 1rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      border-bottom: 4px solid var(--accent-color);
+    }
+    
+    h1, h2, h3, h4 {
+      margin: 0;
+      font-weight: 700;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    h2 {
+      font-size: 1.8rem;
+      margin: 2rem 0 1rem;
+      color: var(--accent-color);
+      border-right: 4px solid var(--secondary-color);
+      padding-right: 15px;
+    }
+    
+    h3 {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      margin: 1.5rem 0 1rem;
+    }
+    
+    h4 {
+      font-size: 1.2rem;
+      color: var(--secondary-color);
+      margin: 1.2rem 0 0.8rem;
+    }
+    
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      padding: 0 20px;
+      max-width: 1200px;
+      margin: 0 auto 3rem;
+    }
+    
+    .card {
+      background-color: var(--card-bg);
+      padding: 1.8rem;
+      border-radius: 8px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+      border-left: 4px solid var(--accent-color);
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .card h3 {
+      color: var(--accent-color);
+      margin-top: 0;
+      margin-bottom: 1.2rem;
+      font-size: 1.4rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    
+    .card h3:after {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 50px;
+      height: 2px;
+      background: var(--secondary-color);
+    }
+    
+    ul {
+      padding-right: 0;
+      list-style-type: none;
+    }
+    
+    li {
+      margin-bottom: 1rem;
+      position: relative;
+      padding-right: 1.5rem;
+      font-size: 1.1rem;
+    }
+    
+    li:before {
+      content: "»";
+      color: var(--secondary-color);
+      position: absolute;
+      right: 0;
+      font-size: 1.3rem;
+    }
+    
+    .learning-path {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 20px;
+    }
+    
+    .path-item {
+      position: relative;
+      padding-right: 30px;
+      margin-bottom: 2rem;
+    }
+    
+    .path-item:before {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--timeline-color);
+    }
+    
+    .path-content {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    
+    .path-content:before {
+      content: '';
+      position: absolute;
+      right: -14px;
+      top: 20px;
+      width: 20px;
+      height: 20px;
+      background: var(--secondary-color);
+      border-radius: 50%;
+      z-index: 1;
+    }
+    
+    .time-range {
+      display: inline-block;
+      background: var(--primary-color);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .tech-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 1rem;
+    }
+    
+    .tech-item {
+      background: rgba(142, 68, 173, 0.2);
+      color: var(--primary-color);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      border: 1px solid var(--primary-color);
+    }
+    
+    .highlight {
+      background: rgba(26, 188, 156, 0.2);
+      color: var(--accent-color);
+      border: 1px solid var(--accent-color);
+    }
+    
+    .android-item {
+      background: rgba(46, 204, 113, 0.2);
+      color: #2ecc71;
+      border: 1px solid #2ecc71;
+    }
+    
+    .hero-image {
+      width: 100%;
+      max-height: 500px;
+      object-fit: cover;
+      border-radius: 0;
+      margin: 0 auto;
+      display: block;
+      border-top: 4px solid var(--accent-color);
+      border-bottom: 4px solid var(--accent-color);
+    }
+    
+    footer {
+      background-color: var(--footer-bg);
+      color: var(--footer-text);
+      text-align: center;
+      padding: 2.5rem 1rem;
+      margin-top: 3rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .footer-content p {
+      margin: 0.8rem 0;
+      font-size: 1.1rem;
+    }
+    
+    .telegram-link {
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: inline-block;
+      padding: 0.3rem 0;
+      border-bottom: 1px dashed var(--accent-color);
+    }
+    
+    .telegram-link:hover {
+      color: var(--secondary-color);
+      border-bottom-color: var(--secondary-color);
+    }
+    
+    .copyright {
+      opacity: 0.8;
+      font-size: 0.9rem;
+      margin-top: 1.5rem;
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        grid-template-columns: 1fr;
+        padding: 0 15px;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+      }
+      
+      .card {
+        padding: 1.3rem;
+      }
+      
+      li {
+        font-size: 1rem;
+      }
+      
+      .path-content:before {
+        right: -12px;
+        width: 16px;
+        height: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>دليل البرمجة الشامل</h1>
+    <h2>مرجع شامل للمبرمجين الناطقين بالعربية</h2>
+  </header>
+  
+  <div class="container" id="content">
+    <div class="card">
+      <h3>أساسيات البرمجة</h3>
+      <ul>
+        <li>Variable - متغير</li>
+        <li>Function - دالة</li>
+        <li>Loop - حلقة تكرار</li>
+        <li>Condition - شرط</li>
+        <li>Array - مصفوفة</li>
+        <li>Object - كائن</li>
+        <li>Class - فئة (كلاس)</li>
+        <li>Method - طريقة / أسلوب</li>
+        <li>Parameter - معامل (باراميتر)</li>
+        <li>Argument - قيمة مُمرَّرة (أرجومنت)</li>
+      </ul>
+    </div>
+    
+    <div class="card">
+      <h3>أنواع البيانات والعمليات</h3>
+      <ul>
+        <li>Return - أرجع / عودة</li>
+        <li>Boolean - منطقي (صح أو خطأ)</li>
+        <li>String - نص</li>
+        <li>Integer - عدد صحيح</li>
+        <li>Float - عدد عشري</li>
+        <li>Constant - ثابت</li>
+        <li>Scope - نطاق</li>
+        <li>Syntax - الصياغة / بناء الجملة</li>
+        <li>Operator - عامل</li>
+        <li>Expression - تعبير</li>
+      </ul>
+    </div>
+    
+    <div class="card">
+      <h3>التحكم والتنفيذ</h3>
+      <ul>
+        <li>Statement - جملة برمجية</li>
+        <li>Compile - ترجمة (كود → برنامج)</li>
+        <li>Execute - نفّذ</li>
+        <li>Debug - تنقيح الأخطاء</li>
+        <li>Error - خطأ</li>
+        <li>Exception - استثناء</li>
+        <li>Break - إيقاف الحلقة</li>
+        <li>Continue - متابعة الحلقة</li>
+        <li>Initialize - تهيئة</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="learning-path">
+    <h2>مسارات تعلم البرمجة</h2>
+    
+    <h3>تطوير الويب</h3>
+    
+    <div class="path-item">
+      <div class="path-content">
+        <span class="time-range">1-4 أسابيع</span>
+        <h4>أساسيات HTML</h4>
+        <p>لغة هيكلة صفحات الويب الأساسية</p>
+      </div>
+    </div>
+    
+    <div class="path-item">
+      <div class="path-content">
+        <span class="time-range">2-8 أسابيع</span>
+        <h4>أساسيات CSS</h4>
+        <p>لغة تنسيق وتصميم صفحات الويب</p>
+      </div>
+    </div>
+    
+    <div class="path-item">
+      <div class="path-content">
+        <span class="time-range">4-8 أشهر</span>
+        <h4>جافا سكريبت</h4>
+        <p>لغة البرمجة الأساسية للواجهة الأمامية</p>
+        <div class="tech-list">
+          <span class="tech-item">ES6+</span>
+          <span class="tech-item">DOM Manipulation</span>
+          <span class="tech-item">AJAX</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="path-item">
+      <div class="path-content">
+        <span class="time-range">2-6 أسابيع</span>
+        <h4>إطارات العمل Frontend</h4>
+        <p>أشهر إطارات عمل الواجهة الأمامية</p>
+        <div class="tech-list">
+          <span class="tech-item highlight">React.js</span>
+          <span class="tech-item">Vue.js</span>
+          <span class="tech-item highlight">Next.js</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="path-item">
+      <div class="path-content">
+        <span class="time-range">3-6 أشهر</span>
+        <h4>Backend Development</h4>
+        <p>تطوير الخوادم والواجهة الخلفية</p>
+        <div class="tech-list">
+          <span class="tech-item highlight">Node.js</span>
+          <span class="tech-item">Express.js</span>
+          <span class="tech-item highlight">Python</span>
+          <span class="tech-item">Django</span>
+          <span class="tech-item">Flask</span>
+        </div>
+      </div>
+    </div>
+    
+    <h3>تطوير تطبيقات الجوال</h3>
+    
+    <div class="path-item">
+      <div class="path-content">
+        <span class="time-range">3-6 أشهر</span>
+        <h4>تطوير iOS</h4>
+        <p>لغة Swift لتطوير تطبيقات آيفون</p>
+        <div class="tech-list">
+          <span class="tech-item">SwiftUI</span>
+          <span class="tech-item">UIKit</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="path-item">
+      <div class="path-content">
+        <span class="time-range">2-5 أشهر</span>
+        <h4>تطوير Android</h4>
+        <p>تطوير تطبيقات أندرويد باستخدام</p>
+        <div class="tech-list">
+          <span class="tech-item android-item">Kotlin</span>
+          <span class="tech-item android-item">Java</span>
+          <span class="tech-item">Android Studio</span>
+          <span class="tech-item">Jetpack Compose</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="path-item">
+      <div class="path-content">
+        <span class="time-range">3-6 أشهر</span>
+        <h4>التطوير متعدد المنصات</h4>
+        <p>إطارات عمل لتطوير تطبيقات تعمل على iOS و Android معاً</p>
+        <div class="tech-list">
+          <span class="tech-item highlight">React Native</span>
+          <span class="tech-item highlight">Flutter</span>
+        </div>
+      </div>
+    </div>
+    
+    <h3>برمجة الألعاب</h3>
+    
+    <div class="path-item">
+      <div class="path-content">
+        <span class="time-range">6-12 شهر</span>
+        <h4>Unity</h4>
+        <p>محرك ألعاب شهير يستخدم لغة C#</p>
+        <div class="tech-list">
+          <span class="tech-item highlight">C#</span>
+          <span class="tech-item">Game Design</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="path-item">
+      <div class="path-content">
+        <span class="time-range">6-18 شهر</span>
+        <h4>برمجة الألعاب بلغة C++</h4>
+        <p>لغة قوية لبرمجة الألعاب عالية الأداء</p>
+        <div class="tech-list">
+          <span class="tech-item">Unreal Engine</span>
+          <span class="tech-item">DirectX</span>
+        </div>
+      </div>
+    </div>
+    
+    <h3>الذكاء الاصطناعي</h3>
+    
+    <div class="path-item">
+      <div class="path-content">
+        <span class="time-range">6-12 شهر</span>
+        <h4>أساسيات الذكاء الاصطناعي</h4>
+        <p>تعلم أساسيات الذكاء الاصطناعي والتعلم الآلي</p>
+        <div class="tech-list">
+          <span class="tech-item highlight">Python</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="path-item">
+      <div class="path-content">
+        <span class="time-range">2-12 شهر</span>
+        <h4>مكتبات الذكاء الاصطناعي</h4>
+        <p>أشهر المكتبات المستخدمة في مجال الذكاء الاصطناعي</p>
+        <div class="tech-list">
+          <span class="tech-item">NumPy</span>
+          <span class="tech-item">Pandas</span>
+          <span class="tech-item">Matplotlib</span>
+          <span class="tech-item highlight">Scikit-Learn</span>
+          <span class="tech-item highlight">TensorFlow</span>
+        </div>
+      </div>
+    </div>
+    
+    <h3>لغات برمجة عامة</h3>
+    
+    <div class="path-item">
+      <div class="path-content">
+        <span class="time-range">2-8 أشهر</span>
+        <h4>Python</h4>
+        <p>لغة سهلة للمبتدئين وقوية في مجالات متعددة</p>
+      </div>
+    </div>
+    
+    <div class="path-item">
+      <div class="path-content">
+        <span class="time-range">4-8 أشهر</span>
+        <h4>JavaScript</h4>
+        <p>لغة الويب الشهيرة والمطلوبة في سوق العمل</p>
+      </div>
+    </div>
+    
+    <div class="path-item">
+      <div class="path-content">
+        <span class="time-range">4-12 شهر</span>
+        <h4>Java</h4>
+        <p>لغة قوية تستخدم في تطبيقات Android والخوادم والتطبيقات الكبيرة</p>
+      </div>
+    </div>
+    
+    <div class="path-item">
+      <div class="path-content">
+        <span class="time-range">6-12 شهر</span>
+        <h4>لغات متقدمة</h4>
+        <p>لغات برمجة متخصصة وعالية الأداء</p>
+        <div class="tech-list">
+          <span class="tech-item">Rust</span>
+          <span class="tech-item">Go</span>
+          <span class="tech-item">C++</span>
+          <span class="tech-item">Assembly</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <img src="https://j.top4top.io/p_3506nqevv1.jpg" alt="صورة DERAMA" class="hero-image">
+  
+  <footer>
+    <div class="footer-content">
+      <p>تم تصميم و تطوير الموقع من قبل DERAMA<strong>DERAMA</strong> لمساعدة ا</p>
+      <p>تابعنا على قناة التليجرام: <a href="https://t.me/deramadol_56" class="telegram-link" target="_blank">https://t.me/https://t.me/derama_56</a></p>
+      <p class="copyright">جميع الحقوق محفوظة &copy; <span id="year"></span> - DERAMA</p>
+    </div>
+  </footer>
+  
+  <script>
+    // إضافة السنة الحالية في الفوتر
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
